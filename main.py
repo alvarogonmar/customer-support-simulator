@@ -1,21 +1,18 @@
-from data_structures.ticket_queue import TicketQueue
+from models.ticket import Ticket
+from services.support_system import SupportSystem
 
-queue = TicketQueue()
+system = SupportSystem()
 
-print(queue.is_empty())  # True
-print(queue.peek())      # None
+ticket1 = Ticket(101, "Login problem", 2, "Technical")
+ticket2 = Ticket(102, "Payment failed", 1, "Billing")
+duplicate = Ticket(101, "Another problem", 3, "General")
 
-queue.enqueue(101)
-queue.enqueue(102)
-queue.enqueue(103)
+print(system.add_ticket(ticket1))     # True
+print(system.add_ticket(ticket2))     # True
+print(system.add_ticket(duplicate))   # False
 
-print(queue.size)        # 3
-print(queue.peek())      # 101
+print(system.tickets.size)            # 2
+print(system.pending_queue.size)      # 2
 
-print(queue.dequeue())   # 101
-print(queue.dequeue())   # 102
-print(queue.dequeue())   # 103
-
-print(queue.is_empty())  # True
-print(queue.dequeue())   # None
-print(queue.size)        # 0
+print(system.pending_queue.peek())    # 101
+print(system.tickets.get(101).description)  # Login problem
