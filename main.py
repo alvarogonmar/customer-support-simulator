@@ -3,16 +3,15 @@ from services.support_system import SupportSystem
 
 system = SupportSystem()
 
-ticket1 = Ticket(101, "Login problem", 2, "Technical")
-ticket2 = Ticket(102, "Payment failed", 1, "Billing")
-duplicate = Ticket(101, "Another problem", 3, "General")
+system.add_ticket(Ticket(101, "Login problem", 2, "Technical"))
+system.add_ticket(Ticket(102, "Payment failed", 1, "Billing"))
 
-print(system.add_ticket(ticket1))     # True
-print(system.add_ticket(ticket2))     # True
-print(system.add_ticket(duplicate))   # False
+ticket = system.process_next_ticket()
 
-print(system.tickets.size)            # 2
-print(system.pending_queue.size)      # 2
+print(ticket.id)
+print(ticket.status)
+print(system.pending_queue.peek())
+print(system.pending_queue.size)
 
-print(system.pending_queue.peek())    # 101
-print(system.tickets.get(101).description)  # Login problem
+second_ticket = system.tickets.get(102)
+print(second_ticket.status)
