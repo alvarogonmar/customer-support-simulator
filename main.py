@@ -1,22 +1,21 @@
-from models.ticket import Ticket
-from data_structures.ticket_hashmap import TicketHashMap
+from data_structures.ticket_queue import TicketQueue
 
-hashmap = TicketHashMap(10)
+queue = TicketQueue()
 
-for i in range(1, 11):
-    ticket = Ticket(i, f"Problem {i}", 2, "Technical")
-    hashmap.insert(ticket)
+print(queue.is_empty())  # True
+print(queue.peek())      # None
 
-    print(
-        f"Ticket: {i} | "
-        f"Size: {hashmap.size} | "
-        f"Capacity: {hashmap.capacity} | "
-        f"Load Factor: {hashmap.get_load_factor():.2f}"
-    )
+queue.enqueue(101)
+queue.enqueue(102)
+queue.enqueue(103)
 
-for i in range(1, 11):
-    ticket = hashmap.get(i)
-    assert ticket is not None
-    assert ticket.id == i
+print(queue.size)        # 3
+print(queue.peek())      # 101
 
-print("All tickets found successfully!")
+print(queue.dequeue())   # 101
+print(queue.dequeue())   # 102
+print(queue.dequeue())   # 103
+
+print(queue.is_empty())  # True
+print(queue.dequeue())   # None
+print(queue.size)        # 0
